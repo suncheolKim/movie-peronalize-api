@@ -1,0 +1,6 @@
+spring:
+    application:
+        name: movie-peronalize-api
+
+api:
+    movie-info-api: http://localhost:8083/v1
