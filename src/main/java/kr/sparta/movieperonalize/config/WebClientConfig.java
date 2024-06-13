@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ClientHttpConnector;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.http.codec.ClientCodecConfigurer;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.netty.http.client.HttpClient;
@@ -30,7 +31,7 @@ public class WebClientConfig {
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
         return WebClient.builder()
                 .uriBuilderFactory(factory)
-                .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(2 * 1024 * 1024))
+                .codecs(ClientCodecConfigurer::defaultCodecs)
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .build();
     }
@@ -38,9 +39,6 @@ public class WebClientConfig {
     @Bean
     public ConnectionProvider connectionProvider() {
         return ConnectionProvider.builder("http-pool")
-                .maxConnections(100)
-                .pendingAcquireTimeout(Duration.ofMillis(0))
-                .pendingAcquireMaxCount(-1)
                 .maxIdleTime(Duration.ofMillis(1000L))
                 .build();
     }
