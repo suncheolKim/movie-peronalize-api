@@ -16,7 +16,7 @@ import java.time.Duration;
 
 @Slf4j
 @Service
-public class RecommandService {
+public class RecommendService {
     @Value("${api.movie-info-api}")
     private String movieInfoApiUrl;
 
@@ -25,7 +25,7 @@ public class RecommandService {
     private WebClient webClient;
     private UriComponents movieInfoApiUriComponent;
 
-    public RecommandService(WebClient.Builder webClientBuilder) {
+    public RecommendService(WebClient.Builder webClientBuilder) {
         this.webClientBuilder = webClientBuilder;
     }
 

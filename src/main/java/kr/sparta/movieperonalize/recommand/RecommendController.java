@@ -6,22 +6,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/v1")
 public class RecommendController {
-    private final RecommandService recommandService;
+    private final RecommendService recommendService;
 
-    public RecommendController(RecommandService recommandService) {
-        this.recommandService = recommandService;
+    public RecommendController(RecommendService recommendService) {
+        this.recommendService = recommendService;
     }
 
     @GetMapping("/movies/genre/{genre}")
-    public List<MovieDto> getMoviesByGenre(@PathVariable MovieGenre genre) {
-        return recommandService.getMoviesByGenre(genre)
-                .collectList()
-                .block();
+    public Flux<MovieDto> getMoviesByGenre(@PathVariable MovieGenre genre) {
+        return recommendService.getMoviesByGenre(genre);
     }
 }
