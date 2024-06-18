@@ -2,5 +2,13 @@ spring:
     application:
         name: movie-peronalize-api
 
+redis:
+    host: localhost
+    port: 6379
+
 api:
     movie-info-api: http://14.39.87.120:8083/v1
+
+logging:
+    level:
+        root: info
